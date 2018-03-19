@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SMML version="6.5" xmlns="http://www.chordiant.com/smml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.chordiant.com/smml SMML-6-5.xsd">
+  <Package name="">
+    <MetaInfoList>
+      <MetaInfo key="sd.package.name" value="sum.smml"/>
+      <MetaInfo key="sd.package.hasAdaptives" value="false"/>
+    </MetaInfoList>
+    <Manifest>
+      <PackageDescription></PackageDescription>
+      <CollectorInstances>
+        <CollectorInstance name="ExternalCollector" contractLocation="" decisionID="NewDecision" structureHash="d4ad6a1234b39f306891a418933d2991" isExternal="true"/>
+      </CollectorInstances>
+      <UsedInputs masterDataDictionaryLocation="..\Data Dictionary\Master Data Dictionary.mdd">
+        <UsedField name="inputClass.z" type="numeric"/>
+      </UsedInputs>
+      <Warnings hasWarnings="false"/>
+    </Manifest>
+    <DataDictionary masterDataDictionaryLocation="..\Data Dictionary\Master Data Dictionary.mdd" allowOverride="false">
+      <Structure name="inputClass">
+        <Description>Class-listing Type: com.test.inputClass</Description>
+        <MetaInfoList>
+          <MetaInfo key="rtds.className" value="com.test.inputClass"/>
+        </MetaInfoList>
+        <NumericField name="z">
+          <MetaInfoList>
+            <MetaInfo key="rtds.className" value="float"/>
+          </MetaInfoList>
+        </NumericField>
+      </Structure>
+    </DataDictionary>
+    <DecisionLogic>
+      <VirtualField name="sum" instancedef="Numeric" isVirtual="false" arrayFlags="" type="numeric">
+        <MetaInfoList>
+          <MetaInfo key="sd.diagram.x" value="493"/>
+          <MetaInfo key="sd.diagram.y" value="193"/>
+        </MetaInfoList>
+        <InputFieldList>
+          <Reference name="inputClass.z"/>
+        </InputFieldList>
+        <SimpleExpression>inputClass.z+inputClass.z</SimpleExpression>
+      </VirtualField>
+      <Collector name="ExternalCollector" isExternal="true" decisionID="NewDecision">
+        <MetaInfoList>
+          <MetaInfo key="sd.diagram.x" value="823"/>
+          <MetaInfo key="sd.diagram.y" value="404"/>
+        </MetaInfoList>
+        <InputComponentList>
+          <Reference name="sum"/>
+        </InputComponentList>
+        <OutputFieldList>
+          <Reference name="ExternalCollector.outputClass"/>
+          <Reference name="ExternalCollector.outputClass.sum"/>
+        </OutputFieldList>
+        <InputFieldList>
+          <Reference name="sum"/>
+        </InputFieldList>
+        <Structure name="outputClass">
+          <Description>Class-listing Type: com.test.outputClass</Description>
+          <MetaInfoList>
+            <MetaInfo key="rtds.className" value="com.test.outputClass"/>
+          </MetaInfoList>
+          <NumericField name="sum">
+            <Reference index="" ref="sum"/>
+            <MetaInfoList>
+              <MetaInfo key="rtds.className" value="float"/>
+            </MetaInfoList>
+          </NumericField>
+        </Structure>
+      </Collector>
+    </DecisionLogic>
+  </Package>
+</SMML>
